@@ -1,20 +1,18 @@
 'use client';
 
-import Image from 'next/image';
 import { Container } from './page.styles';
 import { Navigation } from '../../components/Navigation/Navigation.styles';
 import Hero from '../../components/Hero/Hero';
+import Logo from '../../components/Logo/Logo';
+import { useAppContext } from '../../context/appContext';
 
 function LandingPage() {
+  // const { state } = useAppContext();
+  // console.log(state);
   return (
     <Container>
       <Navigation>
-        <Image
-          src="./logo.svg"
-          width={164}
-          height={50}
-          alt="Picture of the author"
-        />
+        <Logo />
       </Navigation>
       <Hero />
     </Container>

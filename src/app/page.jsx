@@ -3,8 +3,15 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import styles from './page.module.css';
+import RedirectTemplate from '../components/RedirectTemplate/RedirectTemplate';
 
 export default function Home() {
+  const user = undefined;
+
+  if (user === undefined) {
+    return (<RedirectTemplate />);
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>

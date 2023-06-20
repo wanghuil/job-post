@@ -1,8 +1,17 @@
 import { StyledButton } from './Button.styles';
 
-function Button({ children }) {
+function Button({
+  className, children, href, ...props
+}) {
   return (
-    <StyledButton>{children}</StyledButton>
+    <StyledButton
+      {...props}
+      className={className}
+      as={href?.length ? 'a' : 'button'}
+      href={href}
+    >
+      {children}
+    </StyledButton>
   );
 }
 

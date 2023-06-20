@@ -10,7 +10,7 @@ function Hero() {
       <InfoContainer>
         <Title>Job <span>Tracking</span> App</Title>
         <Description>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum beatae laboriosam rerum eligendi nihil a ex illo amet iusto ullam et sed nam enim distinctio, quibusdam, quidem rem itaque aliquid?</Description>
-        <Button href="#">Login/Register</Button>
+        <Button href="/register">Login/Register</Button>
       </InfoContainer>
 
       <HeroImageContainer className="hero-image">
