@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Logo from 'components/Logo/Logo';
+import Card from 'components/Card/Card';
+import FormInputRow from 'components/FormInputRow/FormInputRow';
 import {
   Container, FormTitle, Form, StyledButton as Button, MemberSwitchContainer,
 } from './page.styles';
-import Logo from '../../components/Logo/Logo';
-import Card from '../../components/Card/Card';
-import FormInputRow from '../../components/FormInputRow/FormInputRow';
 
 function RegisterPage() {
   const [formValues, setFormValues] = useState({

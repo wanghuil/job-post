@@ -16,7 +16,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "path": ["./src"]
+        "paths": ["src"]
       }
     }
   }
