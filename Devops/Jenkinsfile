@@ -2,18 +2,21 @@ pipeline {
     agent any
 
     environment {
-        S3BucketName = 'jenkins.land-tasker-dev.net'
+        AWS_CRED        = 'aws_jr10_wanda'
+        S3BucketName    = 'jenkins.land-tasker-dev.net'
     }
 
     stages {
+        stage('Build') {
+            steps {
+                sh 'npm install' // Install dependencies
+                sh 'npm run build' // Run npm build command
+            }
+        }
+        
         stage('Check S3 Bucket') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                    credentialsId: 'aws_jr10_wanda'
-                ]]) {
+                withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     script {
                         def filesToUpload = "out/*"
 
@@ -22,12 +25,10 @@ pipeline {
                         if (bucketExists) {
                             stage('Upload Files') {
                                 steps {
-                                    withAWS(region: 'ap-southeast-2') {
-                                        sh "aws s3 cp ${filesToUpload} s3://$S3BucketName/ --recursive"
-                                    }
+                                    sh "aws s3 cp ${filesToUpload} s3://$S3BucketName/ --recursive"
                                 }
                             }
-                        }
+                        } 
                     }
                 }
             }
