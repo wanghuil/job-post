@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam defaultValue: false, name: 'blBuild'
-        booleanParam defaultValue: false, name: 'blUploadS3'
-    }
-
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
         S3BucketName    = 'jenkins.land-tasker-dev.net'
@@ -13,7 +8,6 @@ pipeline {
 
     stages {
         stage('Build') {
-            when {expression{return params.blBuild}}
             steps {
                 sh 'npm install' // Install dependencies
                 sh 'npm run build' // Run npm build command
@@ -21,7 +15,6 @@ pipeline {
         }
         
         stage('Upload S3 Bucket') {
-            when {expression{return params.blUploadS3}}
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     dir('out') {
