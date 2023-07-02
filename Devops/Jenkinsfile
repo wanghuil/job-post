@@ -9,9 +9,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo apt install nodejs' //install nodejs
-                sh 'npm install' // Install dependencies
-                sh 'npm run build' // Run npm build command
+                withCredentials([string(credentialsId: 'JenkinsPasswd', variable: 'PASSWORD')]) {
+                    sh "echo \$PASSWORD | sudo -S apt install -y nodejs"
+                    sh 'npm install' // Install dependencies
+                    sh 'npm run build' // Run npm build command
+                }
             }
         }
         
