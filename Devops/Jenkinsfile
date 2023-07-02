@@ -13,7 +13,6 @@ pipeline {
                 sh 'npm run build' // Run npm build command
             }
         }
-        
         stage('Upload S3 Bucket') {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
