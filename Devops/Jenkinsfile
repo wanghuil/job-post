@@ -5,9 +5,6 @@ pipeline {
         booleanParam defaultValue: false, name: 'blBuild'
         booleanParam defaultValue: false, name: 'blUploadS3'
     }
-    options {
-        ansiColor('xterm')
-    }
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
