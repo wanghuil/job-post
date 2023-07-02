@@ -14,21 +14,13 @@ pipeline {
             }
         }
         
-        stage('Check S3 Bucket') {
+        stage('Upload S3 Bucket') {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
-                    script {
-                        def filesToUpload = "out/*"
-
-                        def bucketExists = sh(script: "aws s3 ls s3://$S3BucketName", returnStatus: true) == 0
-
-                        if (bucketExists) {
-                            stage('Upload Files') {
-                                steps {
-                                    sh "aws s3 cp ${filesToUpload} s3://$S3BucketName/ --recursive"
-                                }
-                            }
-                        } 
+                    dir('out') {
+                        sh '''
+                            aws s3 cp ${filesToUpload} s3://$S3BucketName/ --recursive
+                        '''
                     }
                 }
             }
