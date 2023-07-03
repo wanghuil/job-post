@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
-        S3BucketName    = 'jenkins.land-tasker-dev.net'
+        S3BucketName    = 'land-tasker-dev.net'
     }
 
     stages {
@@ -16,11 +16,10 @@ pipeline {
         stage('Upload S3 Bucket') {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
-                    dir('out') {
-                        sh '''
-                            aws s3 cp ${filesToUpload} s3://$S3BucketName/ --recursive
-                        '''
-                    }
+                    sh '''
+                        aws s3 rm s3://$S3BucketName/ --recursive
+                        aws s3 sync ./out/ s3://$S3BucketName/
+                    '''
                 }
             }
         }
