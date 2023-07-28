@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
-        S3BucketName    = 'land-tasker-dev.net'
+        S3BucketName    = 'land-tasker.link'
     }
 
     stages {
