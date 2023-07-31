@@ -26,7 +26,7 @@ variable "r53_zone_id" {
 
 variable "default-root-object" {
   type    = string
-  default = "/landing.html"
+  default = "landing.html"
 }
 
 variable "not-found-response-path" {

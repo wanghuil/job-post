@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    //agent any
+    agent {
+        docker {
+            image 'node:latest' // Specify the Docker image you want to use
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // (Optional) Mount Docker socket to interact with the host's Docker daemon
+        }
+    }
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
