@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:latest' // Specify the Docker image you want to use
-            //args '-v /var/run/docker.sock:/var/run/docker.sock' // (Optional) Mount Docker socket to interact with the host's Docker daemon
-        }
-    }
+    agent none
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
@@ -13,20 +8,22 @@ pipeline {
 
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:latest' 
+                }
+            }
             steps {
                 sh 'npm install' // Install dependencies
                 sh 'npm run build' // Run npm build command
             }
         }
-        stage('Install AWS CLI') {
-            steps {
-                sh 'apk update'
-                sh 'apk add --update py-pip'
-                sh 'python -m pip install awscli'
-                sh 'which aws'
-            }
-        }
         stage('Upload S3 Bucket') {
+            agent {
+                docker {
+                    image 'amazon/aws-cli:2.2.46' // Use AWS CLI image for the 'Upload S3 Bucket' stage
+                }
+            }
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     sh '''
