@@ -13,14 +13,19 @@ provider "aws" {
   region = var.region
 }
 
+provider "aws" {
+  region = "ap-southeast-2"
+  alias  = "ap_southeast_2"
+}
+
 #not allowed for variables
 terraform {
   backend "s3" {
-    encrypt = true
-    bucket = "land-tasker-terraform-remote-state-storage"
-    region = "ap-southeast-2"
-    key = "./terraform.tfstate"
-    profile = "default"
-    dynamodb_table = "land-tasker-terraform-state-lock-dynamodb"
+    encrypt        = true
+    bucket         = "terraform-remote-state-storage-land-tasker"
+    region         = "ap-southeast-2"
+    key            = "./terraform.tfstate"
+    profile        = "default"
+    dynamodb_table = "terraform-state-lock-dynamodb-land-tasker"
   }
 }

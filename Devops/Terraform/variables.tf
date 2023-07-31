@@ -1,11 +1,11 @@
 variable "region" {
-  type = string
+  type    = string
   default = "ap-southeast-2"
 }
 
 variable "dynamodb" {
-  type = string
-  default = "land-tasker-terraform-state-lock-dynamodb"
+  type    = string
+  default = "terraform-state-lock-dynamodb-land-tasker"
 }
 
 variable "bucket_name" {
@@ -19,9 +19,14 @@ variable "routing_rules" {
   default = ""
 }
 
+variable "r53_zone_id" {
+  type    = string
+  default = "Z0313427118PHAQZR2TFW"
+}
+
 variable "default-root-object" {
   type    = string
-  default = "landing.html"
+  default = "/landing.html"
 }
 
 variable "not-found-response-path" {
@@ -63,14 +68,19 @@ variable "ipv6" {
   default     = false
 }
 
+variable "force_destroy" {
+  type        = bool
+  description = "A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
+  default     = false
+}
+
+variable "duplicate-content-penalty-secret" {
+  type    = string
+  default = "MySecretValue123"
+}
+
 variable "minimum_client_tls_protocol_version" {
   type        = string
   description = "CloudFront viewer certificate minimum protocol version"
   default     = "TLSv1"
-}
-
-variable "force_destroy" {
-  type = bool
-  description = "A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable."
-  default = false
 }
