@@ -19,6 +19,11 @@ pipeline {
                 sh 'npm run build' // Run npm build command
             }
         }
+        stage('Install AWS CLI') {
+            steps {
+                sh 'npm install -g aws-cli' // Install AWS CLI in the Docker container
+            }
+        }
         stage('Upload S3 Bucket') {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
