@@ -1,5 +1,10 @@
 pipeline {
-    agent none
+    agent {
+        docker {
+            image 'ubuntu:latest' // Use the Ubuntu image
+            args '--privileged' // Optional: If you need elevated privileges in the container
+        }
+    }
 
     environment {
         AWS_CRED        = 'aws_jr10_wanda'
@@ -7,23 +12,21 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:latest' 
-                }
+        stage('Install Node.js and AWS CLI') {
+            steps {
+                sh 'apt update && apt install -y nodejs npm' // Install Node.js and npm
+                sh 'npm install -g aws-cli' // Install AWS CLI using npm
             }
+        }
+
+        stage('Build') {
             steps {
                 sh 'npm install' // Install dependencies
                 sh 'npm run build' // Run npm build command
             }
         }
+
         stage('Upload S3 Bucket') {
-            agent {
-                docker {
-                    image 'amazon/aws-cli:2.2.46' // Use AWS CLI image for the 'Upload S3 Bucket' stage
-                }
-            }
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     sh '''
