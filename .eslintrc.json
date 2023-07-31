@@ -11,12 +11,13 @@
     "no-unused-vars": 1,
     "react/jsx-props-no-spreading": 0,
     "jsx-a11y/label-has-associated-control": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "react/jsx-no-constructed-context-values": 0
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "path": ["./src"]
+        "paths": ["src"]
       }
     }
   }

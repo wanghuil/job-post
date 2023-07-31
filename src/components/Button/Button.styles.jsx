@@ -20,8 +20,10 @@ export const StyledButton = styled.button`
 
 ${(p) => p.variant === 'text' && `
     background-color: rgba(0, 0, 0, 0);
+    display: inline;
     color: ${p.theme.colors.primary};
     padding: 0;
+    width:auto;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0);
