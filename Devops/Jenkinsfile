@@ -21,6 +21,7 @@ pipeline {
         stage('Install AWS CLI') {
             steps {
                 sh 'npm install -g aws-cli' // Install AWS CLI in the Docker container
+                sh 'which aws'
             }
         }
         stage('Upload S3 Bucket') {
