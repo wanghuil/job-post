@@ -20,7 +20,9 @@ pipeline {
         }
         stage('Install AWS CLI') {
             steps {
-                sh 'npm install -g aws-cli' // Install AWS CLI in the Docker container
+                sh 'apk update'
+                sh 'apk add --update py-pip'
+                sh 'python -m pip install awscli'
                 sh 'which aws'
             }
         }
@@ -28,8 +30,8 @@ pipeline {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     sh '''
-                        /usr/local/bin/aws s3 rm s3://$S3BucketName/ --recursive
-                        /usr/local/bin/aws s3 sync ./out/ s3://$S3BucketName/
+                        aws s3 rm s3://$S3BucketName/ --recursive
+                        aws s3 sync ./out/ s3://$S3BucketName/
                     '''
                 }
             }
