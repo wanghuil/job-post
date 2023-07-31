@@ -1,9 +1,8 @@
 pipeline {
-    //agent any
     agent {
         docker {
             image 'node:latest' // Specify the Docker image you want to use
-            //args '-v /var/run/docker.sock:/var/run/docker.sock'
+            //args '-v /var/run/docker.sock:/var/run/docker.sock' // (Optional) Mount Docker socket to interact with the host's Docker daemon
         }
     }
 
@@ -28,8 +27,8 @@ pipeline {
             steps {
                 withAWS(credentials: AWS_CRED, region: 'ap-southeast-2') {
                     sh '''
-                        aws s3 rm s3://$S3BucketName/ --recursive
-                        aws s3 sync ./out/ s3://$S3BucketName/
+                        /usr/local/bin/aws s3 rm s3://$S3BucketName/ --recursive
+                        /usr/local/bin/aws s3 sync ./out/ s3://$S3BucketName/
                     '''
                 }
             }
