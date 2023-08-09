@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "prod_media" {
   provider = aws.ap_southeast_2
 
   website {
-    index_document = "landing.html"
+    index_document = "register.html"
     error_document = "404.html"
   }
 }
