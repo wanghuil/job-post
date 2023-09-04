@@ -223,14 +223,14 @@ resource "aws_route53_record" "cloudfront_bucket_record" {
 }
 
 #Block s3 Public Access 
-# resource "aws_s3_account_public_access_block" "bucket_public_access_block" {
-#   block_public_acls       = true
-#   block_public_policy     = true
-#   ignore_public_acls      = true
-#   restrict_public_buckets = true
+resource "aws_s3_account_public_access_block" "bucket_public_access_block" {
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 
-#   depends_on = [aws_s3_bucket_policy.cloudfront_prod_media_bucket]
-# }
+  depends_on = [aws_s3_bucket_policy.cloudfront_prod_media_bucket]
+}
 
 
 

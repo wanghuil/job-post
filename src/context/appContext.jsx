@@ -17,7 +17,7 @@ export function AppProvider({ children }) {
   const setupUser = async ({ currentUser, endPoint }) => {
     try {
       const { data } = await axios.post(
-        `https://alb.land-tasker.link/api/v1/auth/${endPoint}`,
+        `https://lb.land-tasker.link/api/v1/auth/${endPoint}`,
         currentUser,
       );
 
